@@ -1,0 +1,61 @@
+﻿@model Apresentacao.Models.Lists.AmigosViewModel
+@{
+    ViewData["Title"] = "Amigos";
+}
+
+<h1>Amigos</h1>
+
+<form action="/lists/manteramigos" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Selecionado</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Sobrenome</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var amigo in Model.Amigos)
+            {
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+
+                            @if (Apresentacao
+                                .Models
+                                .Lists
+                                .AmigosViewModel
+                                .AmigosSelecionados
+                                .Any(id => id == amigo.Id))
+                            {
+                                <input 
+                                       onChange="this.form.submit()" 
+                                       class="form-check-input" 
+                                       type="checkbox" 
+                                       value="@amigo.Id" 
+                                       name="amigoSelecionado" 
+                                       checked>
+                            }
+                            else
+                            {
+                                <input 
+                                       onChange="this.form.submit()" 
+                                       class="form-check-input" 
+                                       type="checkbox" 
+                                       value="@amigo.Id" 
+                                       name="amigoSelecionado">
+                            }
+
+
+                        </div>
+                    </th>
+                
+                    <td>@amigo.Nome</td>
+                    <td>@amigo.Sobrenome</td>
+                    <td>@amigo.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
